@@ -18,6 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.home),
     path('list/', views.list, name="list_contact"),
     path('create/', views.create, name="create_contact"),
     path('delete/<int:id>/', views.delete, name="delete_contact"),

@@ -3,6 +3,9 @@ from .models import Agenda
 from .forms import AgendaForm
 
 # Create your views here.
+def home(resquest):
+	return redirect('/agenda/list/')
+
 def list(resquest):
 	form = AgendaForm(resquest.POST or None)
 	agendas = Agenda.objects.all()

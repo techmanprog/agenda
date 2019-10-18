@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Edit agenda{% endblock title %}
+
+{% block content %}
+  <h1>Nouveau contact</h1>
+  <hr />
+
+  <form method="POST" action="/agenda/create/">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.name.label_tag }}  
+      {{ form.name }}  
+    </div>
+    <div class="form-group">
+      {{ form.firstname.label_tag }}      
+      {{ form.firstname }}      
+    </div>
+    <div class="form-group">     
+      {{ form.telephone.label_tag }}
+      {{ form.telephone }}
+    </div>
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" name="submit" value="Enregistrer">
+    </div>
+  </form>
+{% endblock content %}

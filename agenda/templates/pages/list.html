@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Agenda{% endblock %}
+
+{% block content %}
+  <h1>
+    Agenda
+    <a class="btn btn-primary" href="/agenda/create/" style="font-size: 15px" data-toggle="modal" data-target="#new_contact">
+      Ajouter
+    </a>
+  </h1>
+  <hr />
+
+  <table style="width:100%" class="table table-striped table-bordered table-hover" id="myTable">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Téléphone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Téléphone</th>
+        <th>Actions</th>
+      </tr>
+    </tfoot>
+    {% for agenda in agendas %}
+
+    <tr>
+      <td>{{ agenda.name }}</td>
+      <td>{{ agenda.firstname }}</td>
+      <td>{{ agenda.telephone }}</td>
+      <td>
+        <a class="btn btn-primary btn-sm" href="/agenda/edit/{{ agenda.id }}/">Modifier</a>
+        <a class="btn btn-danger btn-sm" href="/agenda/delete/{{ agenda.id }}/">Supprimer</a>
+      </td>
+    </tr>
+  
+    {% empty %}
+      <p>Agenda vide.</p>
+    {% endfor %}
+  </table> 
+
+  <!-- Modal -->
+  <div class="modal fade" id="new_contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form method="POST" action="/agenda/create/">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nouveau contact</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              {{ form.name.label_tag }}  
+              {{ form.name }}  
+            </div>
+            <div class="form-group">
+              {{ form.firstname.label_tag }}      
+              {{ form.firstname }}      
+            </div>
+            <div class="form-group">     
+              {{ form.telephone.label_tag }}
+              {{ form.telephone }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <input class="btn btn-primary" type="submit" name="submit" value="Enregistrer">
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
